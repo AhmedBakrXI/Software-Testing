@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 public class ValidationService implements MovieValidator, UserValidator {
     private static final Pattern USER_ID_PATTERN = Pattern.compile("^\\d{8}[A-Z]?$");
-
     private final List<Movie> movies;
     private final List<User> users;
 
@@ -48,7 +47,6 @@ public class ValidationService implements MovieValidator, UserValidator {
             throw new AppException("Movie not found", ErrorCode.MOVIE_NOT_FOUND_ERROR);
         }
     }
-
 
     @Override
     public void validateMovie(Movie movie) {
