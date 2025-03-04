@@ -94,7 +94,7 @@ public class ValidationService implements MovieValidator, UserValidator {
             idLetters.append(Character.toUpperCase(word.trim().charAt(0)));
         }
 
-        if (!movieId.startsWith(idLetters.toString())) {
+        if (!movieId.startsWith(idLetters.toString()) || movieId.length() != (idLetters.length() + 3)) {
             throw new AppException("Movie id does not match title", ErrorCode.MOVIE_ID_LETTERS_ERROR);
         }
     }

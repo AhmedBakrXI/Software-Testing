@@ -1,6 +1,7 @@
 package org.software.testing;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private final String name;
@@ -24,6 +25,16 @@ public class User {
     public List<String> getFavouriteMovieIds() {
         return favouriteMovieIds;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name)
+                && Objects.equals(id, user.id)
+                && Objects.equals(favouriteMovieIds, user.favouriteMovieIds);
+    }
+
 
     @Override
     public String toString() {

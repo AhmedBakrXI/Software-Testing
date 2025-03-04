@@ -1,6 +1,7 @@
 package org.software.testing;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Movie {
     private final String title;
@@ -23,6 +24,15 @@ public class Movie {
 
     public List<String> getGenres() {
         return genres;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(title, movie.title)
+                && Objects.equals(id, movie.id)
+                && Objects.equals(genres, movie.genres);
     }
 
     @Override
