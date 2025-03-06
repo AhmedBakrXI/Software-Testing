@@ -44,7 +44,7 @@ public class ValidationService implements MovieValidator, UserValidator {
             }
         }
         if (!found) {
-            throw new AppException("Movie not found", ErrorCode.MOVIE_NOT_FOUND_ERROR);
+            throw new AppException("Movie " + movieId + " not found", ErrorCode.MOVIE_NOT_FOUND_ERROR);
         }
     }
 
@@ -56,10 +56,9 @@ public class ValidationService implements MovieValidator, UserValidator {
     }
 
     private void validateUsername(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new AppException("User name is empty", ErrorCode.USER_NAME_ERROR);
+        if (name == null || name.isEmpty() || name.startsWith(" ") || !name.matches("[A-Za-z ]+")) {
+            throw new AppException("User Name " + name + " is wrong", ErrorCode.USER_NAME_ERROR);
         }
-
         validateNameOrTitle(name, true);
     }
 
@@ -68,12 +67,9 @@ public class ValidationService implements MovieValidator, UserValidator {
     }
 
     private void checkIdRules(String id) {
-        if (id.length() != 9) {
-            throw new AppException("User id length is invalid", ErrorCode.USER_ID_LENGTH_ERROR);
-        }
         Matcher matcher = USER_ID_PATTERN.matcher(id);
-        if (!matcher.matches()) {
-            throw new AppException("User id is invalid", ErrorCode.USER_ID_ERROR);
+        if (id.length() != 9 || !matcher.matches()) {
+                throw new AppException("User ID "+ id +" is wrong", ErrorCode.USER_ID_ERROR);
         }
     }
 
@@ -81,7 +77,8 @@ public class ValidationService implements MovieValidator, UserValidator {
         for (int i = 0; i < users.size(); i++) {
             for (int j = i + 1; j < users.size(); j++) {
                 if (users.get(i).getId().equals(users.get(j).getId())) {
-                    throw new AppException("User id is not unique", ErrorCode.USER_ID_ERROR);
+                    throw new AppException("User ID "+ users.get(i).getId() + " is not unique"
+                            , ErrorCode.USER_ID_ERROR);
                 }
             }
         }
@@ -95,7 +92,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         }
 
         if (!movieId.startsWith(idLetters.toString()) || movieId.length() != (idLetters.length() + 3)) {
-            throw new AppException("Movie id does not match title", ErrorCode.MOVIE_ID_LETTERS_ERROR);
+            throw new AppException("Movie ID letters "+ movieId +" are wrong", ErrorCode.MOVIE_ID_LETTERS_ERROR);
         }
     }
 
@@ -105,7 +102,8 @@ public class ValidationService implements MovieValidator, UserValidator {
             for (int j = i + 1; j < movies.size(); j++) {
                 String lastThreeDigitsJ = movies.get(j).getId().substring(movies.get(j).getId().length() - 3);
                 if (lastThreeDigitsI.equals(lastThreeDigitsJ)) {
-                    throw new AppException("Last three digits of movie id are not unique", ErrorCode.MOVIE_ID_UNIQUE_ERROR);
+                    throw new AppException("Movie ID numbers " + movies.get(i).getId() + " aren't unique"
+                            , ErrorCode.MOVIE_ID_UNIQUE_ERROR);
                 }
             }
         }
@@ -128,9 +126,9 @@ public class ValidationService implements MovieValidator, UserValidator {
         for (String word : words) {
             if (!Character.isUpperCase(word.charAt(0))) {
                 if (isUser) {
-                    throw new AppException("Name or title is not capitalized", ErrorCode.USER_NAME_ERROR);
+                    throw new AppException("User Name" + nameOrTitle +" is wrong", ErrorCode.USER_NAME_ERROR);
                 } else {
-                    throw new AppException("Name or title is not capitalized", ErrorCode.MOVIE_TITLE_ERROR);
+                    throw new AppException("Movie title " + nameOrTitle +" is wrong", ErrorCode.MOVIE_TITLE_ERROR);
                 }
             }
         }
