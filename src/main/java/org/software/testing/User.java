@@ -1,30 +1,10 @@
 package org.software.testing;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
-    private final String name;
-    private final String id;
-    private final List<String> favouriteMovieIds;
-
-    public User(String name, String id, List<String> favouriteMovieIds) {
-        this.name = name;
-        this.id = id;
-        this.favouriteMovieIds = favouriteMovieIds;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<String> getFavouriteMovieIds() {
-        return favouriteMovieIds;
-    }
+public record User(String name, String id, List<String> favouriteMovieIds) {
 
     @Override
     public boolean equals(Object o) {
@@ -32,7 +12,7 @@ public class User {
         User user = (User) o;
         return Objects.equals(name, user.name)
                 && Objects.equals(id, user.id)
-                && Objects.equals(favouriteMovieIds, user.favouriteMovieIds);
+                && Objects.equals(new HashSet<>(favouriteMovieIds), new HashSet<>(user.favouriteMovieIds));
     }
 
 

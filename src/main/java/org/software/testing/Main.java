@@ -26,7 +26,6 @@ public class Main {
             FileWriter.writeToFile(RECOMMENDATIONS_FILE_PATH, output);
         } catch (AppException e) {
             System.out.println(e.getMessage() + ", Id: " + e.getErrorCode().getCode());
-            e.printStackTrace();
             boolean isWritten = FileWriter.writeToFile(ERROR_FILE_PATH, "ERROR: " + e.getMessage());
             if (!isWritten) {
                 System.out.println("Error written to file: " + ERROR_FILE_PATH);
@@ -40,10 +39,10 @@ public class Main {
         for (Map.Entry<User, List<Movie>> entry : recommendations.entrySet()) {
             User user = entry.getKey();
             List<Movie> recommendedMovies = entry.getValue();
-            outputBuilder.append(user.getName()).append(", ").append(user.getId()).append("\n");
+            outputBuilder.append(user.name()).append(", ").append(user.id()).append("\n");
             for (int index = 0; index < recommendedMovies.size(); index++) {
                 Movie movie = recommendedMovies.get(index);
-                outputBuilder.append(movie.getTitle());
+                outputBuilder.append(movie.title());
                 if (index != recommendedMovies.size() - 1) {
                     outputBuilder.append(", ");
                 }

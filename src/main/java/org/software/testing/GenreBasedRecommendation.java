@@ -7,10 +7,10 @@ public class GenreBasedRecommendation implements RecommendationStrategy {
     @Override
     public List<Movie> recommend(User user, List<Movie> movies) {
         List<Movie> recommendedMovies = new ArrayList<>();
-        for (String favouriteMovieId : user.getFavouriteMovieIds()) {
+        for (String favouriteMovieId : user.favouriteMovieIds()) {
             Movie favouriteMovie = findMovieById(favouriteMovieId, movies);
             if (favouriteMovie != null) {
-                addMoviesByGenre(favouriteMovie.getGenres(), movies, recommendedMovies, user.getFavouriteMovieIds());
+                addMoviesByGenre(favouriteMovie.genres(), movies, recommendedMovies, user.favouriteMovieIds());
             }
         }
         return recommendedMovies;
@@ -18,7 +18,7 @@ public class GenreBasedRecommendation implements RecommendationStrategy {
 
     private Movie findMovieById(String movieId, List<Movie> movies) {
         for (Movie movie : movies) {
-            if (movie.getId().equals(movieId)) {
+            if (movie.id().equals(movieId)) {
                 return movie;
             }
         }
@@ -28,7 +28,7 @@ public class GenreBasedRecommendation implements RecommendationStrategy {
     private void addMoviesByGenre(List<String> genres, List<Movie> movies, List<Movie> recommendedMovies, List<String> favouriteMovieIds) {
         for (String genre : genres) {
             for (Movie movie : movies) {
-                if (movie.getGenres().contains(genre) && !recommendedMovies.contains(movie) && !favouriteMovieIds.contains(movie.getId())) {
+                if (movie.genres().contains(genre) && !recommendedMovies.contains(movie) && !favouriteMovieIds.contains(movie.id())) {
                     recommendedMovies.add(movie);
                 }
             }
