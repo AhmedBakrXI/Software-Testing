@@ -68,7 +68,16 @@ public class ValidationService implements MovieValidator, UserValidator {
 
     private void checkIdRules(String id) {
         Matcher matcher = USER_ID_PATTERN.matcher(id);
-        if (id.length() != 9 || !matcher.matches()) {
+        boolean isInteger;
+        try {
+            Integer.parseInt(id);
+            isInteger = true;
+        } catch (NumberFormatException e) {
+            isInteger = false;
+        }
+
+        // Check if the ID is 9 characters long, matches the pattern, and is an integer
+        if (id.length() != 9 || (!matcher.matches() && !isInteger)) {
                 throw new AppException("User ID "+ id +" is wrong", ErrorCode.USER_ID_ERROR);
         }
     }
