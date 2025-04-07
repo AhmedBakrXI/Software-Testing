@@ -35,6 +35,13 @@ public class ValidationService implements MovieValidator, UserValidator {
         }
     }
 
+    @Override
+    public void validateMovie(Movie movie) {
+        validateMovieId(movie.id(), movie.title());
+        validateMovieTitle(movie.title());
+        validateMovieGenre(movie.genres());
+    }
+
     private void validateMovieFound(String movieId) {
         boolean found = false;
         for (Movie movie : movies) {
@@ -46,13 +53,6 @@ public class ValidationService implements MovieValidator, UserValidator {
         if (!found) {
             throw new AppException("Movie " + movieId + " not found", ErrorCode.MOVIE_NOT_FOUND_ERROR);
         }
-    }
-
-    @Override
-    public void validateMovie(Movie movie) {
-        validateMovieId(movie.id(), movie.title());
-        validateMovieTitle(movie.title());
-        validateMovieGenre(movie.genres());
     }
 
     private void validateUsername(String name) {
