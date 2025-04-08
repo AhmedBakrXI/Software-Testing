@@ -29,7 +29,12 @@ public class MovieRecommendationServiceTest {
         );
          movies = Arrays.asList(
                 new Movie("Inception", "M1", Arrays.asList("Sci-Fi")),
-                new Movie("The Matrix", "M2", Arrays.asList("Action"))
+                new Movie("The Matrix", "M2", Arrays.asList("Action")),
+                new Movie("Blade Runner 2049", "M3", Arrays.asList("Sci-Fi")),
+                new Movie("Mad Max: Fury Road", "M4", Arrays.asList("Action")),
+                new Movie("Edge of Tomorrow", "M5", Arrays.asList("Sci-Fi")),
+                new Movie("Star Trek", "M6", Arrays.asList("Sci-Fi")),
+                new Movie("The Dark Knight", "M7", Arrays.asList("Action"))
         );
 
         recommendationList = movieService.generateRecommendations(users, movies);
