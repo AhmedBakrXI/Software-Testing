@@ -12,13 +12,8 @@ import static org.junit.Assert.assertTrue;
 public class MovieRecommendationServiceTest {
     @Test
     public void generateRecommendations() throws IOException {
-        String path1 = "test_files/users1.txt";
-        String path2= "test_files/movies1.txt";
-
-        
-
-        List<User> users = FileReader.readUsers(path1);
-        List<Movie> movies = FileReader.readMovies(path2);
+        List<User> users = Arrays.asList(new User("Alice"), new User("Bob"));
+        List<Movie> movies = Arrays.asList(new Movie("Inception"), new Movie("The Matrix"));
 
         
         MovieRecommendationService movieService = new MovieRecommendationService(new GenreBasedRecommendation());
