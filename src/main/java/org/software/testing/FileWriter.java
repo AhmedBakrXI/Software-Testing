@@ -6,6 +6,9 @@ import java.nio.file.Files;
 
 public class FileWriter {
     public static boolean writeToFile(String fileName, String content) {
+        if(fileName == null || content == null) {
+            return false;
+        }
         File file = new File(fileName);
         if (!file.exists()) {
             try {

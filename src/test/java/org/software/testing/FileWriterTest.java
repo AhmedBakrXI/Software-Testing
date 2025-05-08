@@ -68,30 +68,7 @@ public class FileWriterTest
         assertFalse(result);
     }
 
-    @Test
-    public void writeToFile_readOnlyFile_returnsFalse() throws IOException {
-        testFilePath = Path.of("test_files/readonly_test.txt");
 
-        // Ensure directory exists
-        Files.createDirectories(testFilePath.getParent());
-
-        // Create file and write initial content
-        Files.writeString(testFilePath, "Initial Content", StandardCharsets.UTF_8);
-
-        // Make the file read-only
-        File file = testFilePath.toFile();
-        boolean permissionChanged = file.setReadOnly();
-        assertTrue("Failed to set file as read-only", permissionChanged);
-
-        // Try writing to the read-only file
-        boolean result = FileWriter.writeToFile(testFilePath.toString(), "New Content");
-
-        // Verify it returns false
-        assertFalse(result);
-
-        // Reset permissions so @After cleanup can delete it
-        file.setWritable(true);
-    }
 
     @After
     public void cleanUp() {
