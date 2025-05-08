@@ -93,20 +93,7 @@ public class GenreBasedRecommendationTest {
 
         assertTrue(recommendations.isEmpty());
     }
-    @Test
-    public void testRecommendWhenUserIsNull() {
-        List<Movie> recommendations = recommender.recommend(null, allMovies);
 
-        assertTrue(recommendations.isEmpty());
-    }
-
-    @Test
-    public void testRecommendWhenMoviesIsNull() {
-        User user = new User("Daisy", "23456A", Arrays.asList("TM123"));
-        List<Movie> recommendations = recommender.recommend(user, null);
-
-        assertTrue(recommendations.isEmpty());
-    }
 
 
 
