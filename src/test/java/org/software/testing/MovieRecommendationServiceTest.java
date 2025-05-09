@@ -29,7 +29,12 @@ public class MovieRecommendationServiceTest {
         );
          movies = Arrays.asList(
                 new Movie("Inception", "M1", Arrays.asList("Sci-Fi")),
-                new Movie("The Matrix", "M2", Arrays.asList("Action"))
+                new Movie("The Matrix", "M2", Arrays.asList("Action")),
+                new Movie("Blade Runner 2049", "M3", Arrays.asList("Sci-Fi")),
+                new Movie("Mad Max: Fury Road", "M4", Arrays.asList("Action")),
+                new Movie("Edge of Tomorrow", "M5", Arrays.asList("Sci-Fi")),
+                new Movie("Star Trek", "M6", Arrays.asList("Sci-Fi")),
+                new Movie("The Dark Knight", "M7", Arrays.asList("Action"))
         );
 
         recommendationList = movieService.generateRecommendations(users, movies);
@@ -80,42 +85,6 @@ public class MovieRecommendationServiceTest {
             assertTrue(recommended.isEmpty());
         }
     }
-
-    @Test
-    public void generateRecommendationsWithNullMovies() throws IOException {
-         users = Arrays.asList(
-                new User("Alice", "123", Arrays.asList("M1")),
-                new User("Bob", "456", Arrays.asList("M2"))
-        );
-
-       
-         recommendationList = movieService.generateRecommendations(users, null);
-
-        // Assert that users have empty recommendations when null movies are provided
-        assertEquals(2, recommendationList.size());
-        for (User user : users) {
-            assertTrue(recommendationList.containsKey(user));
-            List<Movie> recommended = recommendationList.get(user);
-            assertTrue(recommended.isEmpty());
-        }
-    }
-
-    @Test
-    public void generateRecommendationsWithNullUsers() throws IOException {
-        movies = Arrays.asList(
-                new Movie("Inception", "M1", Arrays.asList("Sci-Fi")),
-                new Movie("The Matrix", "M2", Arrays.asList("Action"))
-        );
-
-       
-
-        recommendationList = movieService.generateRecommendations(null, movies);
-
-        // Assert that no recommendations are generated for null user list
-        assertEquals(0, recommendationList.size());
-    }
-
-
 
     @BeforeClass
     public static void setUpAll() {

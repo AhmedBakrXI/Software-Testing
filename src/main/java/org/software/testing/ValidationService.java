@@ -135,7 +135,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         for (String word : words) {
             if (!Character.isUpperCase(word.charAt(0))) {
                 if (isUser) {
-                    throw new AppException("User Name" + nameOrTitle +" is wrong", ErrorCode.USER_NAME_ERROR);
+                    throw new AppException("User Name " + nameOrTitle +" is wrong", ErrorCode.USER_NAME_ERROR);
                 } else {
                     throw new AppException("Movie title " + nameOrTitle +" is wrong", ErrorCode.MOVIE_TITLE_ERROR);
                 }
