@@ -42,7 +42,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         validateMovieGenre(movie.genres());
     }
 
-    private void validateMovieFound(String movieId) {
+    public void validateMovieFound(String movieId) {
         boolean found = false;
         for (Movie movie : movies) {
             if (movie.id().equals(movieId)) {
@@ -55,7 +55,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         }
     }
 
-    private void validateUsername(String name) {
+    public void validateUsername(String name) {
         if (name == null || name.isEmpty() || name.startsWith(" ") || !name.matches("[A-Za-z ]+")) {
             throw new AppException("User Name " + name + " is wrong", ErrorCode.USER_NAME_ERROR);
         }
@@ -118,7 +118,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         }
     }
 
-    private void validateMovieTitle(String title) {
+    public void validateMovieTitle(String title) {
         if (title == null || title.isEmpty()) {
             throw new AppException("Movie title is empty", ErrorCode.MOVIE_TITLE_ERROR);
         }
@@ -126,7 +126,7 @@ public class ValidationService implements MovieValidator, UserValidator {
         validateNameOrTitle(title, false);
     }
 
-    private void validateNameOrTitle(String nameOrTitle, boolean isUser) {
+    public void validateNameOrTitle(String nameOrTitle, boolean isUser) {
         if (nameOrTitle == null || nameOrTitle.isEmpty()) {
             throw new AppException("Name or title is empty", ErrorCode.USER_NAME_ERROR);
         }
